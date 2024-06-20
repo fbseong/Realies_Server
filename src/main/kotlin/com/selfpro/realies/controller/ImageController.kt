@@ -1,6 +1,6 @@
 package com.selfpro.realies.controller
 
-import com.selfpro.realies.model.ProviderModel
+import com.selfpro.realies.model.NewsProvider
 import org.springframework.core.io.ClassPathResource
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -20,8 +20,8 @@ class ImageController {
     }
 
     @GetMapping("/provider")
-    fun getProviderImage(@RequestParam images: String): ResponseEntity<ByteArray> {
-        val providerImage = ProviderModel().getProviderInfo(images)
+    fun getProviderImage(@RequestParam name: String): ResponseEntity<ByteArray> {
+        val providerImage = NewsProvider().getProviderInfo(name)
 
         val imgFile = ClassPathResource("static/images/$providerImage").inputStream.readBytes()
         return ResponseEntity.ok()
