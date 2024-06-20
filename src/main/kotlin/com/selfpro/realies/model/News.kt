@@ -6,9 +6,9 @@ import java.time.LocalDateTime
 @Document(collation = "news")
 data class News(
     val title: String,
-    val author: String,
+    val author: String?,
     val image: String? = null,
     val url: String? = null,
-    val content: String,
-    val createdAt: LocalDateTime? = LocalDateTime.now()
+    val content: String?,
+    val createdAt: String? = null
 )
