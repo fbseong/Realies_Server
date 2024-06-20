@@ -1,11 +1,11 @@
 package com.selfpro.realies.dto
 
-data class NewsAPIDto(
+data class RealiesAPIDto(
     val status: String,
     val totalResults: Int,
-    val articles: List<NewsArticle>
+    val articles: List<RealiesArticle>
 ) {
-    data class NewsArticle(
+    data class RealiesArticle(
         val source: Source,
         val author: String?,
         val title: String,

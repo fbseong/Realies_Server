@@ -1,38 +1,39 @@
 package com.selfpro.realies.service.impl
 
-import com.selfpro.realies.dto.NewsAPIDto
-import com.selfpro.realies.model.News
-import com.selfpro.realies.repository.NewsRepository
-import com.selfpro.realies.service.NewsService
+import com.selfpro.realies.dto.RealiesAPIDto
+import com.selfpro.realies.dto.RealiesAPIDto.RealiesArticle
+import com.selfpro.realies.model.Realies
+import com.selfpro.realies.repository.RealiesRepository
+import com.selfpro.realies.service.RealiesService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Mono
 
 @Service
-class NewsServiceImpl @Autowired constructor(
-    private val newsRepository: NewsRepository,
+class RealiesServiceImpl @Autowired constructor(
+    private val realiesRepository: RealiesRepository,
     private val webClient: WebClient
-) : NewsService {
-    override fun createNews(news: News): News {
-        return news.let { newsRepository.save(it) }
+) : RealiesService {
+    override fun createNews(realies: Realies): Realies {
+        return realies.let { realiesRepository.save(it) }
     }
 
-    override fun getAllNews(): List<News> {
+    override fun getAllNews(): List<Realies> {
         return listOf()//newsRepository.findAll()
     }
 
-    override fun getNewsById(id: String?): News? {
-        return id?.let { newsRepository.findById(it).orElse(null) }
+    override fun getNewsById(id: String?): Realies? {
+        return id?.let { realiesRepository.findById(it).orElse(null) }
     }
 
     override fun deleteNewsById(id: String?) {
         if (id != null) {
-            newsRepository.deleteById(id)
+            realiesRepository.deleteById(id)
         }
     }
 
-    override fun getRecommendationNewsFromNewsAPI(): Mono<List<NewsAPIDto.NewsArticle>> {
+    override fun getRecommendationNewsFromNewsAPI(): Mono<List<RealiesArticle>> {
         return webClient.get()
             .uri{uriBuilder->
                 uriBuilder
@@ -43,7 +44,7 @@ class NewsServiceImpl @Autowired constructor(
                     .build()
             }
             .retrieve()
-            .bodyToMono(NewsAPIDto::class.java)
+            .bodyToMono(RealiesAPIDto::class.java)
             .map { it.articles }
     }
 

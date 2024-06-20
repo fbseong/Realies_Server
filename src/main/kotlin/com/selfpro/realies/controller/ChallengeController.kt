@@ -2,7 +2,6 @@ package com.selfpro.realies.controller
 
 import com.selfpro.realies.dto.ChallengesDto
 import com.selfpro.realies.model.Challenges
-import com.selfpro.realies.model.News
 import com.selfpro.realies.service.ChallengesService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*

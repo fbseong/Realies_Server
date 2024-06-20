@@ -1,8 +1,6 @@
 package com.selfpro.realies.dto
 
-import java.util.*
-
-data class NewsDto(
+data class RealiesDto(
     val author: String? = null,
     val title: String,
     val image: String? = null,

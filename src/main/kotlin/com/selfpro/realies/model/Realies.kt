@@ -1,10 +1,9 @@
 package com.selfpro.realies.model
 
 import org.springframework.data.mongodb.core.mapping.Document
-import java.time.LocalDateTime
 
-@Document(collation = "news")
-data class News(
+@Document(collation = "realies")
+data class Realies(
     val title: String,
     val author: String?,
     val image: String? = null,
