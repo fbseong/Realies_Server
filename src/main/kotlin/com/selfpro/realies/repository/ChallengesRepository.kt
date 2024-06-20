@@ -1,6 +1,6 @@
 package com.selfpro.realies.repository
 
-import com.selfpro.realies.model.Challenges
+import com.selfpro.realies.entity.Challenges
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.mongodb.repository.MongoRepository

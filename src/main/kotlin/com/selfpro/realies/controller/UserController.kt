@@ -1,6 +1,6 @@
 package com.selfpro.realies.controller
 
-import com.selfpro.realies.model.User
+import com.selfpro.realies.entity.User
 import com.selfpro.realies.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*

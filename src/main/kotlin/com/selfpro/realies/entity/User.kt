@@ -1,4 +1,4 @@
-package com.selfpro.realies.model
+package com.selfpro.realies.entity
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document

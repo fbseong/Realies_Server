@@ -1,9 +1,9 @@
 package com.selfpro.realies.dto
 
-interface NewsDto {
+interface NewsDTO {
     val title: String
     val content: String
-    val publishedAt: String
+    val images: List<String>?
 }
 
 

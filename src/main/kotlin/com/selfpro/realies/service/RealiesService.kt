@@ -1,7 +1,6 @@
 package com.selfpro.realies.service
 
-import com.selfpro.realies.dto.RealiesAPIDto
-import com.selfpro.realies.model.Realies
+import com.selfpro.realies.entity.Realies
 import reactor.core.publisher.Mono
 
 interface RealiesService {
@@ -9,5 +8,5 @@ interface RealiesService {
     fun getAllNews(): List<Realies>
     fun getNewsById(id: String?): Realies?
     fun deleteNewsById(id: String?)
-    fun getRecommendationNewsFromNewsAPI(page: Int): Mono<List<RealiesAPIDto.RealiesArticle>>
+    fun getRecommendationNewsFromNewsAPI(page: Int?): Mono<List<Realies>>
 }

@@ -1,6 +1,6 @@
 package com.selfpro.realies.service
 
-import com.selfpro.realies.model.User
+import com.selfpro.realies.entity.User
 
 interface UserService {
     fun createUser(user: User?): User?
