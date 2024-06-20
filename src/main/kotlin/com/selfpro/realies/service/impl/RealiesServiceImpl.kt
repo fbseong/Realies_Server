@@ -33,13 +33,14 @@ class RealiesServiceImpl @Autowired constructor(
         }
     }
 
-    override fun getRecommendationNewsFromNewsAPI(): Mono<List<RealiesArticle>> {
+    override fun getRecommendationNewsFromNewsAPI(page: Int): Mono<List<RealiesArticle>> {
         return webClient.get()
             .uri{uriBuilder->
                 uriBuilder
                     .path("/v2/top-headlines")
                     .queryParam("country","kr")
-                    .queryParam("sortBy","popularity")
+                    .queryParam("pageSize",20)
+                    .queryParam("page",page)
                     .queryParam("apiKey","91bf7199ef0e40e0a79cf3dcf70b4dbf")
                     .build()
             }

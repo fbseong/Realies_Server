@@ -1,62 +1,66 @@
 package com.selfpro.realies.controller
 
+import com.selfpro.realies.dto.ChallengesDto
+import com.selfpro.realies.dto.NewsDto
 import com.selfpro.realies.dto.RealiesDto
+import com.selfpro.realies.model.Challenges
+import com.selfpro.realies.model.News
 import com.selfpro.realies.model.Realies
+import com.selfpro.realies.service.ChallengesService
 import com.selfpro.realies.service.RealiesService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @RestController
 @RequestMapping("/news")
-class RealiesController @Autowired constructor(private val realiesService: RealiesService) {
+class RealiesController @Autowired constructor(
+    private val realiesService: RealiesService,
+    private val challengesService: ChallengesService
+) {
 
-    @PostMapping
-    fun createUser(@RequestBody realiesDto: RealiesDto): Realies? {
-        return realiesService.createNews(
-            realiesDto.run {
-                Realies(
-                    author = author,
-                    title = title,
-                    content = content
-                )
+    @GetMapping("/recommendation/{page}")
+    fun getRecommendationRealies(@PathVariable page: Int?): Mono<List<NewsDto>> {
+        if (page != null) {
+            //News from NewsAPI
+            val apiNewsMono = realiesService.getRecommendationNewsFromNewsAPI(page+1).flatMap { list ->
+                Flux.fromIterable(list)
+                    .map {
+                        RealiesDto(
+                            title = it.title,
+                            content = it.description ?: "",
+                            publishedAt = it.publishedAt,
+                            provider = it.source.name,
+                            image = null,
+                            url = it.url
+                        )
+                    }
+                    .collectList()
             }
-        )
-    }
-
-    @GetMapping
-    fun getAllUsers(): List<Realies> {
-        return realiesService.getAllNews()
-    }
-
-    @GetMapping("/{id}")
-    fun getUserById(@PathVariable id: String?): Realies? {
-        return realiesService.getNewsById(id)
-    }
-
-    @DeleteMapping("/{id}")
-    fun deleteUserById(@PathVariable id: String?) {
-        realiesService.deleteNewsById(id)
-    }
-
-    @GetMapping("/recommendation")
-    fun getExternalNews(): Mono<List<RealiesDto>> {
-        return realiesService.getRecommendationNewsFromNewsAPI().flatMap { list ->
-            Flux.fromIterable(list).map {
-                    RealiesDto(
+            //ChallengesNews from Challenges DB
+            val challengesMono = Mono.fromCallable { challengesService.getRecommendationRealies(page) }
+                .flatMapMany { Flux.fromIterable(it) }
+                .map {
+                    ChallengesDto(
                         author = it.author,
                         title = it.title,
-                        image = it.urlToImage,
-                        url = it.url,
-                        broadCaster = it.source.name,
+                        image = it.image,
+                        content = it.content,
                         publishedAt = it.publishedAt,
-                        content = it.description
+                        challengeRank = it.challengeRank
                     )
                 }
                 .collectList()
-        }
-    }
 
+            //Combine apiNewMono with challengesMono
+            return apiNewsMono.zipWith(challengesMono) { list1, list2 ->
+                (list1 + list2).sortedBy { LocalDateTime.parse(it.publishedAt, DateTimeFormatter.ISO_DATE_TIME) }
+            }
+        } else return Mono.just(emptyList())
+
+    }
 
 }

@@ -1,11 +1,14 @@
 package com.selfpro.realies.dto
 
+import com.selfpro.realies.model.News
+
 data class RealiesDto(
-    val author: String? = null,
-    val title: String,
+    override val title: String,
+    override val content: String,
+    override val publishedAt: String,
+    val provider: String? = null,
     val image: String? = null,
     val url: String? = null,
-    val broadCaster: String? = null,
-    val content: String? = null,
-    val publishedAt: String? = null
-)
+) : NewsDto {
+
+}

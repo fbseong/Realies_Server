@@ -3,11 +3,13 @@ package com.selfpro.realies.model
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document(collection = "challenges")
-data class Challenges(
+open class Challenges(
+    override val title: String,
+    override val content: String,
+    override val publishedAt: String,
     val author: String,
-    val title: String? = null,
     val image: List<String>? = null,
-    val content: String,
-    val publishedAt: String,
-    val challengeRank: Int = 5
-)
+    val challengeRank: Int = 5,
+):News{
+
+}

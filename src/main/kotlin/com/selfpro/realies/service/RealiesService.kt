@@ -9,5 +9,5 @@ interface RealiesService {
     fun getAllNews(): List<Realies>
     fun getNewsById(id: String?): Realies?
     fun deleteNewsById(id: String?)
-    fun getRecommendationNewsFromNewsAPI(): Mono<List<RealiesAPIDto.RealiesArticle>>
+    fun getRecommendationNewsFromNewsAPI(page: Int): Mono<List<RealiesAPIDto.RealiesArticle>>
 }

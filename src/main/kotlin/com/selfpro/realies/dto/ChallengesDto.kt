@@ -1,10 +1,12 @@
 package com.selfpro.realies.dto
 
 data class ChallengesDto(
+    override val title: String,
+    override val content: String,
+    override val publishedAt: String,
     val author: String,
-    val title: String? = null,
     val image: List<String>? = null,
-    val content: String,
-    val publishedAt: String,
     val challengeRank: Int = 5
-)
+): NewsDto{
+
+}
