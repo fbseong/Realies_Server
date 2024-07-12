@@ -13,7 +13,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @RestController
-@RequestMapping("/news")
+@RequestMapping("/realies")
 class RealiesController @Autowired constructor(
     private val realiesService: RealiesService,
     private val challengesService: ChallengesService
@@ -40,6 +40,11 @@ class RealiesController @Autowired constructor(
             }
         } else return Mono.just(emptyList())
 
+    }
+
+    @GetMapping("/title")
+    fun getRealiesTitle(@RequestParam content: String): String {
+        return realiesService.getRealiesTitel(content)
     }
 
 }

@@ -44,7 +44,7 @@ class ChallengesServiceImpl @Autowired constructor(private val challengesReposit
     }
 
     override fun getRecommendationRealies(page: Int): Mono<List<Challenges>> {
-        val pageable: PageRequest = PageRequest.of(page, 20, Sort.by("publishedAt").ascending())
+        val pageable: PageRequest = PageRequest.of(page, 10, Sort.by("publishedAt").ascending())
         val page = challengesRepository.findByChallengeRankOrderByPublishedAtAsc(1, pageable)
 
 

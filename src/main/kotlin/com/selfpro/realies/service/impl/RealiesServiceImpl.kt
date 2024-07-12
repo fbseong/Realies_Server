@@ -4,11 +4,15 @@ import com.selfpro.realies.dto.NewsAPIDTO
 import com.selfpro.realies.entity.Realies
 import com.selfpro.realies.repository.RealiesRepository
 import com.selfpro.realies.service.RealiesService
+import jakarta.annotation.PostConstruct
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
+
+//import com.
 
 @Service
 class RealiesServiceImpl @Autowired constructor(
@@ -40,7 +44,7 @@ class RealiesServiceImpl @Autowired constructor(
                     uriBuilder
                         .path("/v2/top-headlines")
                         .queryParam("country", "kr")
-                        .queryParam("pageSize", 20)
+                        .queryParam("pageSize", 10)
                         .queryParam("page", page)
                         .queryParam("apiKey", "91bf7199ef0e40e0a79cf3dcf70b4dbf")
                         .build()
@@ -64,6 +68,49 @@ class RealiesServiceImpl @Autowired constructor(
                         .collectList()
                 }
         } else return Mono.just(emptyList())
+
     }
 
+    override fun getRealiesTitel(content: String): String {
+        return "string"
+    }
+
+
+//    private fun summarizeWithGPT(text: String): String {
+//        val gpt = Gpt.openai(apiKey = "")
+//        val prompt = "Summarize the following news article:\n$text\n\nSummary:"
+//        val completion = gpt.complete(
+//            CompletionRequest(
+//                prompt = prompt,
+//                maxTokens = 50,
+//                stop = listOf("\n")
+//            )
+//        )
+//        return completion.choices[0].text.trim()
+//    }
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

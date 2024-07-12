@@ -10,23 +10,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/users")
 class UserController @Autowired constructor(private val userService: UserService) {
 
-    @PostMapping
-    fun createUser(@RequestBody user: User?): User? {
-        return userService.createUser(user)
-    }
-
-    @GetMapping
-    fun getAllUsers(): List<User> {
-        return userService.getAllUsers()
-    }
-
-    @GetMapping("/{id}")
-    fun getUserById(@PathVariable id: String?): User? {
-        return userService.getUserById(id)
-    }
-
-    @DeleteMapping("/{id}")
-    fun deleteUserById(@PathVariable id: String?) {
-        userService.deleteUserById(id)
-    }
 }
+
+
+data class AuthRequest(val username: String, val password: String)
