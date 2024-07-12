@@ -4,6 +4,7 @@ import com.selfpro.realies.entity.User
 import com.selfpro.realies.repository.UserRepository
 import com.selfpro.realies.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Service
 
 
@@ -27,5 +28,9 @@ class UserServiceImpl @Autowired constructor(private val userRepository: UserRep
         if (id != null) {
             userRepository.deleteById(id)
         }
+    }
+
+    override fun loadUserByUsername(username: String?): UserDetails {
+        TODO("Not yet implemented")
     }
 }
