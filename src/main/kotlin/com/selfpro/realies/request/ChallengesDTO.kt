@@ -1,4 +1,4 @@
-package com.selfpro.realies.dto
+package com.selfpro.realies.request
 
 data class ChallengesDTO(
     override val title: String,

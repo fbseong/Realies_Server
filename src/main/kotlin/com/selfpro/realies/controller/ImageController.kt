@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/images")
 class ImageController {
 
-    @GetMapping("/news/{images}")
-    @ResponseBody
-    fun getNewsImage(@RequestParam images: String): ResponseEntity<ByteArray> {
+    @GetMapping("/news")
+    fun getNewsImage(): ResponseEntity<ByteArray> {
         val imgFile = ClassPathResource("static/images/donga.png").inputStream.readBytes()
         return ResponseEntity.ok()
             .contentType(MediaType.IMAGE_JPEG)

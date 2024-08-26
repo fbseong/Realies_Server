@@ -1,6 +1,6 @@
 package com.selfpro.realies.service.impl
 
-import com.selfpro.realies.dto.ChallengesDTO
+import com.selfpro.realies.request.ChallengesDTO
 import com.selfpro.realies.entity.Challenges
 import com.selfpro.realies.repository.ChallengesRepository
 import com.selfpro.realies.service.ChallengesService
@@ -43,15 +43,12 @@ class ChallengesServiceImpl @Autowired constructor(private val challengesReposit
         }
     }
 
-    override fun getRecommendationRealies(page: Int): Mono<List<Challenges>> {
+    override fun getRecommendationRealies(page: Int): List<Challenges> {
         val pageable: PageRequest = PageRequest.of(page, 10, Sort.by("publishedAt").ascending())
         val page = challengesRepository.findByChallengeRankOrderByPublishedAtAsc(1, pageable)
 
 
-        return Mono.fromCallable { page.content }
-            .flatMapMany { Flux.fromIterable(it) }
-            .collectList()
-
+        return page.content
     }
 
     fun ChallengesDTO.toChallenges(): Challenges {

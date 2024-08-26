@@ -8,6 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Document
 data class User(
     @Id val id: String? = null,
     val username: String,
-    val password: String,
-    val subscribe: List<NewsProvider.Provider>
+    val password: String
 )
+

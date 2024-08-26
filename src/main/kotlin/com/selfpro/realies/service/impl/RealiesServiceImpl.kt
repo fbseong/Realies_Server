@@ -1,12 +1,11 @@
 package com.selfpro.realies.service.impl
 
-import com.selfpro.realies.dto.NewsAPIDTO
+import com.selfpro.realies.request.NewsAPIDTO
 import com.selfpro.realies.entity.Realies
 import com.selfpro.realies.repository.RealiesRepository
 import com.selfpro.realies.service.RealiesService
-import jakarta.annotation.PostConstruct
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Flux
@@ -15,10 +14,9 @@ import reactor.core.publisher.Mono
 //import com.
 
 @Service
-class RealiesServiceImpl @Autowired constructor(
-    private val realiesRepository: RealiesRepository,
-    private val webClient: WebClient
-) : RealiesService {
+class RealiesServiceImpl @Autowired constructor(private val realiesRepository: RealiesRepository, private val webClient: WebClient) : RealiesService {
+        private val logger = LoggerFactory.getLogger(javaClass)
+
     override fun createNews(realies: Realies): Realies {
         return realies.let { realiesRepository.save(it) }
     }
@@ -53,6 +51,8 @@ class RealiesServiceImpl @Autowired constructor(
                 .bodyToMono(NewsAPIDTO::class.java)
                 .map { it.articles }
                 .flatMap { list ->
+                    logger.info("page")
+
                     Flux
                         .fromIterable(list)
                         .map {

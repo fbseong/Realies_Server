@@ -17,7 +17,7 @@ class WebClientConfig {
     fun webClient(builder:WebClient.Builder): WebClient {
         val httpClient: HttpClient = HttpClient.create()
             .responseTimeout(Duration.ofMillis(20000))
-            .proxyWithSystemProperties() // 이거 한줄 추가함
+            .proxyWithSystemProperties()
         return builder.clientConnector(ReactorClientHttpConnector(httpClient)).build()
     }
 }
